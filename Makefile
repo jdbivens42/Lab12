@@ -1,8 +1,8 @@
 AutomatedMakefile = am
 CC = g++
 
-FILES = DrawBST.o
-EXECUTABLE = MinTest.exe
+FILES = BSTDriver.o
+EXECUTABLE = Lab12.exe
 
 PROJECT_PATH = $(PROJECT_DIR)
 GTK_PATH = /$(DRIVE_LETTER)/MinGW/GTK
@@ -23,5 +23,5 @@ all: Lab12
 Lab12: 		$(FILES)
 		$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)	
 
-DrawBST.o:		DrawBST.cpp BinarySearchTree.h
-				$(COMPILE) DrawBST.cpp 
+BSTDriver.o:		BSTDriver.cpp BinarySearchTree.h
+				$(COMPILE) BSTDriver.cpp 
