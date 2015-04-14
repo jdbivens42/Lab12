@@ -6,6 +6,7 @@
 #include "Text.h"
 #include "Line.h"
 #include "Drawable.h"
+#include <cmath>
 using CSC2110::String;
 
 template < class T >
@@ -69,6 +70,8 @@ template < class T >
 int BinarySearchTree<T>::getHeight()
 {
    //DO THIS
+   int height = getHeight(root);
+   return height;
 
 }
 
@@ -76,7 +79,16 @@ template < class T >
 int BinarySearchTree<T>::getHeight(TreeNode<T>* tNode)
 {
    //DO THIS
-
+	if (tNode == NULL)
+		return 0;
+	
+	int height1 = getHeight(tNode->getLeft());
+	int height2 = getHeight(tNode->getRight());
+	
+	if (height1 > height2)
+		height2 = height1;
+		
+	return height2+1;
 
 
 }
@@ -85,6 +97,8 @@ template < class T >
 bool BinarySearchTree<T>::isBalanced()
 {
    //DO THIS
+   bool balanced = isBalanced(root);
+   return balanced;
 
 }
 
@@ -92,7 +106,19 @@ template < class T >
 bool BinarySearchTree<T>::isBalanced(TreeNode<T>* tNode)
 {
    //DO THIS
-
+	if (tNode == NULL)
+		return true;
+	
+	int heightLeft = getHeight(tNode->getLeft());
+	int heightRight = getHeight(tNode->getRight());
+	
+	if (abs(heightLeft-heightRight) <= 1)
+	{
+		bool balanced = isBalanced(tNode->getLeft()) && isBalanced(tNode->getRight());
+		return balanced;
+	}
+	else
+		return false;
 
 
 
@@ -104,9 +130,9 @@ BinarySearchTree<T>* BinarySearchTree<T>::minimize()
    T** items = toArray();
    BinarySearchTree<T>* bst = new BinarySearchTree<T>(compare_items, compare_keys);
    //DO THIS
+	bst->minimize(items, 0, sze-1);
 
-
-
+	return bst;
 
 }
 
@@ -114,10 +140,17 @@ template < class T >
 void BinarySearchTree<T>::minimize(T** items, int first, int last)
 {
    //DO THIS (recursive minimize method)
+		
+	if(first > last)
+		return;
+	
+	int mid = first +((last-first)/2);
+	
+	insert(items[mid]);
 
-
-
-
+	
+	minimize(items, 0, mid-1);
+	minimize(items, mid+1, sze-1);
 
 }
 
@@ -167,10 +200,10 @@ void BinarySearchTree<T>::minimizeComplete(T** items, int first, int last)
       if (first < last)
       {
          //initial log computations using mid
-         double k_left =                    //log base 2 of the number of items to the left of mid (including mid)
-         double int_k_left =                //same as above but rounded
-         double k_right =
-         double int_k_right =
+         double k_left;                    //log base 2 of the number of items to the left of mid (including mid)
+         double int_k_left;                //same as above but rounded
+         double k_right;
+         double int_k_right;
 
          //keep searching for spot where the number of elements to the left of mid is 2^k - 1 (a full tree)
          //which means the number of elements to the left of mid including mid is 2^k 
